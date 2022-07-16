@@ -1,6 +1,6 @@
 {
   "API_TOKEN": "API_TOKEN",
-  "QIWI_TOKEN": "QIWI_TOKEN=",
+  "QIWI_TOKEN": "QIWI_TOKEN",
   "URL_APP": "URL_APP",
   "ADMIN_ID": "ADMIN_ID"
 }
