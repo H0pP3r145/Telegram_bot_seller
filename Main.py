@@ -9,20 +9,20 @@ from handlers.admin_handlers import (
     admin_commad,
 )
 from Test_photo import test_photo_h
-from client import dp, bot
+from client import dp, bot, URL_APP, base, cur
 from sqlite_db import AdminDATA
+import os
 
 logging.basicConfig(level=logging.INFO)
 
 
 async def on_startup(_):
-    all_users = AdminDATA.get_all_user_id()
-    for i in all_users:
-        await bot.send_message(
-            i[0],
-            "<b>Бот был перезагружен с целью обновления функционала и редактирования категорий</b> \n\n<b>Пожалуйста, пропишите /start для исключения ошибок работы функций бота!</b> \n\n<i>Подробнее об обновлении или поплнении Вы можете узнать в канале</i> <a href='t.me/os_store_update'>OS Store ОБНОВЛЕНИЯ</a>",
-            parse_mode="HTML",
-        )
+    await bot.set_webhook(URL_APP)
+
+async def on_shutdown(_):
+    await bot.delete_webhook()
+    cur.close()
+    base.close()
 
 
 FAQ_h.register_FAQ_information(dp)
@@ -37,5 +37,11 @@ admin_del_category.register_handlers_del_cat(dp)
 users_h.register_handlers_users(dp)
 help_h.register_message_help(dp)
 
-
-executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+executor.start_webhook(
+    dispatcher=dp, 
+    webhook_path='', 
+    on_startup=on_startup, 
+    on_shutdown=on_shutdown,
+    skip_updates=True,
+    host="0.0.0.0",
+    port=int(os.environ.get("PORT", 5000)))

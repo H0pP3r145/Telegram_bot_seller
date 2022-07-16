@@ -39,7 +39,7 @@ async def set_money(message: types.Message, state=FSMContext):
 
 
 async def handle_creation_of_payment(message: types.Message, state: FSMContext):
-    if is_number(message.text) == True and int(message.text) >= 0:
+    if is_number(message.text) == True and int(message.text) >= 10:
         async with qiwi_p2p_client:
             transaction_id = (
                 str(message.from_user.id) + "_" + str(random.randint(100000, 999999))

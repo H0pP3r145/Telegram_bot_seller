@@ -22,15 +22,14 @@ async def command_start(message: types.Message):
     )
     if message.get_args() != "":
         user.Check_id(message.from_user.id, message.get_args())
-        await bot.send_message(
+    else:
+        user.Check_id(message.from_user.id)
+    await bot.send_message(
             message.from_user.id,
-            f'{message.from_user.first_name}, посколькую Вы впервые зашли в магазин <a href="https://t.me/OS_store_bot">OS Store</a>, пожауйста, ознакомьтесь с разделом "FAQ" для понимания функционала бота!',
+            f'{message.from_user.first_name}, посколькую Вы впервые зашли в магазин <a href="https://t.me/otborniy_sok_store_bot">OS Store</a>, пожауйста, ознакомьтесь с разделом "FAQ" для понимания функционала бота!',
             parse_mode="HTML",
             reply_markup=keyboard,
         )
-    else:
-        user.Check_id(message.from_user.id)
-
     await bot.send_message(
         message.from_user.id, "Что будем делать?", reply_markup=key.Inline_key
     )
@@ -119,7 +118,7 @@ async def profile(message: types.Message):
         + f"💵 Всего пополнено: <code>{money.get_all_money(message.from_user.id)}</code> руб\n"
         + f"🎁 Куплено товаров: <code>{money.get_purchased(message.from_user.id)}</code> шт\n"
         + "➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
-        + f"💎Ваша реферальная ссылка: https://t.me/OS_store_bot?start={message.from_user.id}\n"
+        + f"💎Ваша реферальная ссылка: https://t.me/otborniy_sok_store_bot?start={message.from_user.id}\n"
         + f"🔗Активных рефералов: <code>{money.get_referal(message.from_user.id)}</code> чел\n"
         + f"💰Всего заработано с рефералов: <code>{money.get_money_via_refer(message.from_user.id)}</code> руб",
         disable_web_page_preview=True,

@@ -41,11 +41,12 @@ add_cat = KeyboardButton("Добавить категорию")
 del_cat = KeyboardButton("Удалить категорию")
 test_photo = KeyboardButton("Редактировать превью фотографии")
 Admin_back = KeyboardButton("Назад в главное меню")
+update = KeyboardButton("Обновление")
 stat = KeyboardButton("Статистика")
 admin = (
     (
         (
-            (ReplyKeyboardMarkup(resize_keyboard=True).add(stat)).row(
+            (ReplyKeyboardMarkup(resize_keyboard=True).row(stat, update)).row(
                 add_file, del_file
             )
         ).row(add_cat, del_cat)
